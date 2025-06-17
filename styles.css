@@ -14,3 +14,25 @@ p {
     margin: 0;
     padding: 0;
 }
+
+.setting .mode {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+}
+
+.setting .mode .modeButton {
+    cursor: pointer;
+}
+
+.setting .mode-setting .timecount {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+#typing-content {
+    letter-spacing: 0.15rem;
+}
