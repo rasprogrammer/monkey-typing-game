@@ -22,11 +22,12 @@ p {
     gap: 1rem;
 }
 
-.setting .mode .modeButton {
+.setting .mode .modeButton,
+.mode-setting .modeDetails .modeDetailsButton {
     cursor: pointer;
 }
 
-.setting .mode-setting .timecount {
+.setting .mode-setting .modeDetails {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -35,4 +36,13 @@ p {
 
 #typing-content {
     letter-spacing: 0.15rem;
+}
+
+.modeButton, .modeDetailsButton {
+    padding: 0.4rem 0.6rem;
+    border-radius: 0.2rem;
+}
+
+.modeButton.active, .modeDetailsButton.active {
+    background: rgb(141, 96, 0);
 }
