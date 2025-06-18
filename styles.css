@@ -44,5 +44,14 @@ p {
 }
 
 .modeButton.active, .modeDetailsButton.active {
-    background: rgb(141, 96, 0);
+    background: #ffb009;
+}
+
+#timer {
+    color: #ffb009;
+    font-size: 2.5rem;
+}
+
+#typing-body {
+    
 }

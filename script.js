@@ -3,6 +3,8 @@ const modeElement = document.querySelector('.mode');
 const detailsElement = document.querySelector('.mode-setting');
 
 let selectedMode = "";
+let selectedModeOption = "";
+let timerInterval = null;
 // mode : mode-details
 const setting = {
     "Time": {
@@ -60,6 +62,8 @@ function generateModeDetails(mode, select = null) {
 
     for (const detailOption in details) {
         const isActive = detailOption === selectedModeDetails ? "active" : "";
+        if (isActive) 
+            selectedModeOption = detailOption;
         detailsHTML += `<div class="text-center modeDetailsButton ${isActive}">${detailOption}</div>`;
     }
 
@@ -90,3 +94,38 @@ document.querySelector('.setting').addEventListener('click', (e) => {
         
     }
 });
+
+function updateTypingBody(content) {
+    document.querySelector("#typing-body").innerHTML = content;
+}
+
+function showTimerUI(time) {
+    document.querySelector('#timer').innerHTML = time;
+}
+
+function startTimer() {
+    if (timerInterval) return;
+    let timeInc = parseInt(selectedModeOption);
+    if (selectedMode == "Time" && timeInc > 0) {
+        timerInterval = setInterval(() => {
+            showTimerUI(timeInc);
+            if (timeInc <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                finishTyping();
+            }
+            timeInc--;
+        }, 1000);
+    }
+}
+
+function finishTyping() {
+    updateTypingBody("<h2 class='text-center'>Complete!</h2>");
+}
+
+const startBtn = document.getElementById("startBtn");
+startBtn.addEventListener("click", function() {
+    console.log('mode > ', selectedMode);
+    console.log('modeOption > ', selectedModeOption);
+    startTimer();
+})
