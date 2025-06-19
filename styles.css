@@ -52,6 +52,21 @@ p {
     font-size: 2.5rem;
 }
 
-#typing-body {
-    
+#typing-content {
+    display: flex;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+#typing-content .word {
+    display: flex;
+
+}
+
+#typing-content .word letter{
+    font-size: 2rem;
+}
+
+#typing-content .word letter.focus {
+    border-left: 2px solid #ffb009;
 }

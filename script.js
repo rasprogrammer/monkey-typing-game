@@ -129,3 +129,100 @@ startBtn.addEventListener("click", function() {
     console.log('modeOption > ', selectedModeOption);
     startTimer();
 })
+
+
+// ======== Typing Feature ========
+function getActiveWord() {
+    return document.querySelector('.word.active');
+}
+
+function focusTypingCursor() {
+    const word = getActiveWord();
+    if (!word) return;
+
+    for (const letter of word.children) {
+        if (!letter.classList.contains('correct') && !letter.classList.contains('incorrect')) {
+            focusLetter(letter);
+            return;
+        } else {
+            removeFocusLetter(letter);
+        }
+    }
+}
+
+function focusLetter(element) {
+    removeFocusLetter(element);
+    element.classList.add('focus');
+}
+
+function removeFocusLetter(element) {
+    element.classList.remove('focus');
+}
+
+function clearFocusFromInactiveWords() {
+    const words = document.querySelectorAll('.word:not(.active)');
+    for (const word of words) {
+        for (const letter of word.children) {
+            removeFocusLetter(letter);
+        }
+    }
+}
+
+function matchKeyPressToOriginal(value) {
+    const word = getActiveWord();
+    if (!word) return;
+
+    for (const letter of word.children) {
+        if (!letter.classList.contains('correct') && !letter.classList.contains('incorrect')) {
+            const expected = letter.textContent.trim();
+            letter.classList.remove('correct', 'incorrect', 'wrong');
+            letter.classList.add(value === expected ? 'correct' : 'incorrect');
+            break;
+        }
+    }
+}
+
+function isWordComplete(word) {
+    return [...word.children].every(letter =>
+        letter.classList.contains('correct') || letter.classList.contains('incorrect')
+    );
+}
+
+function switchToNextWord() {
+    const currentWord = getActiveWord();
+    if (!currentWord) return;
+
+    const nextWord = currentWord.nextElementSibling;
+    if (!nextWord) return;
+
+    currentWord.classList.remove('active');
+    currentWord.classList.add('complete');
+
+    nextWord.classList.add('active');
+    clearFocusFromInactiveWords();
+    focusTypingCursor();
+}
+
+function handleKeyPress(event) {
+    const key = event.key;
+
+    if (key === ' ') {
+        event.preventDefault(); // Prevent browser from scrolling
+        const word = getActiveWord();
+        if (isWordComplete(word)) {
+            switchToNextWord();
+        }
+        return;
+    }
+
+    if (key.length === 1) {
+        matchKeyPressToOriginal(key);
+        focusTypingCursor();
+    }
+}
+
+// ======== Initialize Typing Game ========
+document.addEventListener("DOMContentLoaded", () => {
+    focusTypingCursor();
+    document.addEventListener("keypress", handleKeyPress);
+});
