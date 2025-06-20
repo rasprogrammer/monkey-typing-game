@@ -63,10 +63,27 @@ p {
 
 }
 
+#typing-content .word.wrong {
+    text-decoration: underline;
+    text-decoration-color: #ff0909;
+}
+
 #typing-content .word letter{
     font-size: 2rem;
 }
 
+#typing-content .word letter.correct {
+    color: #000000;
+}
+
+#typing-content .word letter.incorrect {
+    color: #ff0909;
+}
+
 #typing-content .word letter.focus {
     border-left: 2px solid #ffb009;
+}
+
+#typing-content .word letter.focus-end {
+    border-right: 2px solid #ffb009;
 }
